@@ -5,7 +5,7 @@ var Ennemy = function(name, color, position, direction) {
     this.life = 3;
     this.bullets = new Array();
     this.direction = direction;
-    this.speed = 0;
+    this.speed = 3;
 
     this.material = new THREE.MeshLambertMaterial({
         color: color,
@@ -72,8 +72,11 @@ Ennemy.prototype.move = function () {
     if (this.speed > 0) {
         this.speed = this.speed - 0.04;
     }
-    else if (this.speed < 0) {
-        this.speed = this.speed + 0.04;
+
+    else if (this.speed <= 0) {
+        this.direction -= 200;
+        this.graphic.rotateOnAxis(new THREE.Vector3(0,0,1), -200);
+        this.speed = 3;
     }
 
     this.graphic.position.x = this.position.x;
